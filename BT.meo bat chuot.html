@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Rat(name,weight,speed,isLive) {
+        this.name = name;
+        this.weight = weight;
+        this.speed = speed;
+        this.isLive = isLive;
+
+
+    };
+    function Cat(name,weight,speed,eating) {
+        this.name  =name;
+        this.weight = weight;
+        this.speed = speed;
+        this.eating = eating;
+        this.eatReady = function () {
+            this.eating = false;
+        };
+        this.selectMouse = function (arrMouse) {
+            if(arrMouse.length > 0){
+                let minSpeed = arrMouse[0].speed;
+                let iMin =0;
+                for(let i =0;i< arrMouse.length;i++){
+                    if(arrMouse[i].speed < minSpeed){
+                        minSpeed = arrMouse[i].speed
+                        iMin =i;
+                    };
+                };
+                let a = arrMouse[0];
+                arrMouse[0] = arrMouse[iMin];
+                arrMouse[iMin] = a;
+            }else{
+                alert("Hết chuột");
+            };
+
+        };
+        this.eatMouse = function (arrMouse) {
+            if(this.eating){
+                alert("Đang ăn")
+            }else if(arrMouse[0].isLive == false){
+                alert("Không ăn chuột chết");
+                arrMouse.shift();
+            }else if(arrMouse[0].speed > this.speed){
+                alert("KHông bắt được chuột");
+                arrMouse.shift()
+            }else {
+                this.weight += arrMouse.weight;
+                this.eating = true;
+                arrMouse[0].isLive =false
+            };
+
+        };
+
+    };
+    let mouse1 = new Rat("mouse1", 20, 10,true);
+    let mouse2 = new Rat("mouse2", 21, 7,true);
+    let mouse3 = new Rat("mouse3", 25, 5,false);
+    let mouse4 = new Rat("mouse4", 23, 15,true);
+    let mouse5 = new Rat("mouse5", 22, 1,false);
+    let arrMouse = [mouse1, mouse2, mouse3, mouse4, mouse5];
+    let cat = new Cat("tom", 50, 13 ,true );
+</script>
+</body>
+</html>
